@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+    <title>TweetBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+            $(".button-collapse").sideNav();
+            $('.materialboxed').materialbox();
+            $('.collapsible-popout').collapsible({
+              accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });
+            
+            $('.modal-trigger').leanModal({
+              dismissible: true, // Modal can be dismissed by clicking outside of the modal
+              opacity: .5, // Opacity of modal background
+              in_duration: 300, // Transition in duration
+              out_duration: 200, // Transition out duration
+              /*ready: function() { alert('Ready'); }, // Callback for Modal open
+              complete: function() { alert('Closed'); } // Callback for Modal close*/
+            });
+        });
+    </script>
+    <style type="text/css">
+    
+    body {
+    color: #FFF;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    }
+
+    .modal{
+        padding: 2em 2em 2em 2em;
+        color: #000;
+        width: 30%;
+    }
+
+    .main {
+        flex: 1 0 auto;
+    }
+
+    .first{
+        background-image: url('/images/banner.jpg');
+        background-size: 120%;
+    }
+
+    .second{
+        background-image: url('/images/banner2.jpg');
+        background-size: 120%;
+    }
+
+    footer.page-footer{
+        background-color: #448AFF;
+        height: 4em;
+    }
+
+
+    </style>
+</head>
+<body>
+<div align="center" id="modal_login" class="modal">
+    <h3>Login</h3>
+    <!-- LOGIN FORM -->
+    <form action="/login" method="post">
+        <div class="form-group">
+            <input placeholder="E-mail Address" type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group">
+            <input placeholder="The secret of your social life a.k.a Password" type="password" class="form-control" name="password">
+        </div>
+        <br>
+        <button type="submit" class="btn-large waves-effect waves-light orange">Login</button>
+    </form>
+</div>
+<div align="center" id="modal_signup" class="modal">
+    <h3>Sign Up</h3>
+    <form action="/signup" method="post">
+        <div class="form-group">
+            <input placeholder="E-mail Address" type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group">
+           <input placeholder="The secret of your social life a.k.a Password" type="password" class="form-control" name="password">
+        </div>
+        <br>
+        <button type="submit" class="btn-large waves-effect waves-light orange">Signup</button>
+    </form>
+</div>
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">TweetBook</a>
+    </div>
+</nav>
+<div class="section no-pad-bot first" id="index-banner">
+    <div class="container">
+        <br><br>
+        <h1 class="header center">Twitbook</h1>
+        <div class="row center">
+          <h3 class="header col s12 light">Connect. Integrate. Share.</h3>
+        </div>
+        <div class="row center">
+          <a href="#modal_login" class="modal-trigger btn-large waves-effect waves-light orange">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#modal_signup" class="modal-trigger btn-large waves-effect waves-light orange">Sign Up!</a>
+        </div>
+        <br><br>
+    </div>
+</div>
+<br>
+    <div class="section no-pad-bot second" id="index-banner">
+        <div class="container">
+            <br><br>
+            <h1 class="header center">Social Integration at it's best</h1>
+            <div class="row center">
+              <h3 class="header col s12 light">Be connected to your friends and families using a single application.</h3>
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <div align="center" class="container">
+        © 2016 GS7 Inc.
+        </div>
+    </footer>
+</body>
+</html>

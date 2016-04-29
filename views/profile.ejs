@@ -1,0 +1,138 @@
+ <!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+    <title>TweetBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <!-- <link rel='stylesheet' href='/css/TweetList.css' /> -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//platform.twitter.com/widgets.js"></script>
+    <script src="/js/TweetList.js"></script>
+    <style type="text/css">
+    textarea{
+        height: auto;
+        resize: none;
+        font-size: 1.3em;
+    }
+    body {
+    min-height: 100vh;
+    flex-direction: column;
+    }
+
+    footer.page-footer{
+        background-color: #448AFF;
+        height: 4em;
+        color: #FFF;
+    }
+
+    nav div{
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+    }
+    </style>
+</head>
+<body>
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/profile" class="brand-logo">TweetBook</a>
+    </div>
+</nav>
+<br>
+<div class="row">
+    <div class="col l3">
+        <div align="center" class="well">
+            <img src="/images/banner.jpg" width="200px" height="200px">
+            <% if (user.twitter.token) { %>
+            <h5><span class="fa fa-user"></span><%= user.twitter.displayName %></h5>
+            <% } else { %>
+                <a href="/connect/twitter" class="btn btn-default">Connect Twitter</a>
+            <% } %>
+            
+            <% if (user.local.email) { %>
+                <p>
+                    <strong>E-mail</strong>: <%= user.local.email %><br>
+                </p>
+            <% } %>
+            
+            <% if (user.twitter.token) { %>
+            <p><strong>Twitter Handle:</strong> <%=user.twitter.username%></p>
+            <% } %>
+            
+            <% if (user.facebook.token) { %>
+                <p>
+                    <strong>Facebook Name</strong>: <%= user.facebook.name %><br>
+                </p>
+            <% } else { %>
+                <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+            <% } %>
+            
+            <% if (user.local.email) { %>
+                <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="col l9">
+        <div class="row" align="center">
+            <form action="/signup" method="post">
+                <div class="col l8 materialize-textarea">
+                    <textarea placeholder="What's on your mind?" type="text" name="postStatus" maxlength=140 length="140" rows="2"></textarea>
+                </div>
+                <div class="col l2">
+                <button type="submit" class="btn waves-effect waves-light"><i class="icon-location-arrow"></i> Post</button>
+                </div>
+            </form>
+        </div>
+        <div class="col l6">
+            
+            <div ng-app="Twitter">
+                <div ng-controller="TweetList">
+                    <div align="center" class="row clearfix">
+                        <div>
+                            <div id="tweet-list">
+
+                                <!-- this div will repeat for every tweet object in the array using a template-expanding directive -->
+                                <div ng-repeat="tweet in tweetsResult" class="tweet-item">
+                                    <!-- sanitized HTML binding -->
+                                    <div ng-bind-html="tweet.oEmbed.html"></div>
+
+                                    <!-- binding to Tweet source property -->
+                                    <div class="tweet-details">
+                                        Tweeted from <span ng-bind-html="tweet.source"></span>
+
+                                        <!-- play around with rendering different Tweet properties -->
+                                        <!-- <p>{{tweet.user.screen_name}}</p> -->
+                                        <!-- <p>{{tweet.text}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- this button will trigger the getMoreTweets function in the javascript controller -->
+                            <button type="button" class="load-more-btn btn btn-default" ng-click="getMoreTweets()">Get More Tweets</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    <div align="center" class="container">
+    © 2016 GS7 Inc.
+    </div>
+</footer>
+</body>
+</html>
