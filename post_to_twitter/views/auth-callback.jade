@@ -1,0 +1,26 @@
+html
+  head
+    script.
+      // now we could do something like get the user info
+      // and pass it to the window that opened this one
+      /*
+        $.ajax({
+          url: '/me'
+        , dataType: 'json'
+        , success: function (data) {
+            //window.parent.alert('signed in');
+            window.opener.doLoginStuff(data);
+          }
+        , error: function (err) {
+            console.error(err);
+          }
+        });
+      */
+
+      // or use the view template to put the account in straightway
+      //- !{foo} allows unsafe html to pass through whereas #{foo} escapes it
+      window.opener.doLoginStuff(!{user});
+      //window.opener.doLoginStuff({ id: 'foo', name: 'bar' });
+      window.close();
+  body
+    p This will run code in the parent window.

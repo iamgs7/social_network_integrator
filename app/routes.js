@@ -76,17 +76,6 @@ module.exports = function(app, passport) {
                 failureRedirect : '/'
             }));
 
-        // google ---------------------------------
-
-        // send to google to do the authentication
-        app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-        // the callback after google has authenticated the user
-        app.get('/auth/google/callback',
-            passport.authenticate('google', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
@@ -131,19 +120,6 @@ module.exports = function(app, passport) {
 
         });
 
-    // google ---------------------------------
-
-        // send to google to do the authentication
-        app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
-
-        // the callback after google has authorized the user
-        app.get('/connect/google/callback',
-            passport.authorize('google', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
-
    
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
@@ -180,16 +156,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    // google ---------------------------------
-    app.get('/unlink/google', isLoggedIn, function(req, res) {
-        var user          = req.user;
-        user.google.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
 };
-
 
 
 // route middleware to ensure user is logged in

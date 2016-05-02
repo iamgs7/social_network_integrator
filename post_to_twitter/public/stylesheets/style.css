@@ -1,0 +1,58 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+body {
+    min-height: 100vh;
+    flex-direction: column;
+    }
+
+.modal{
+    padding: 2em 2em 2em 2em;
+    color: #000;
+    width: 30%;
+}
+
+.main {
+    flex: 1 0 auto;
+}
+
+.first{
+    background-image: url('/images/banner2.jpg');
+    background-size: 120%;
+    height: 30em;
+    color: #FFF;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+textarea{
+        height: auto;
+        resize: none;
+        font-size: 1.3em;
+}
+
+footer.page-footer{
+    background-color: teal;
+    height: 4em;
+    margin-top: 0;
+    color: #FFF;
+}
+
+nav div{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.card{
+    padding: 1em 1em 1em 1em;
+}
