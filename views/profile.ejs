@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -17,100 +17,75 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//platform.twitter.com/widgets.js"></script>
     <script src="/js/TweetList.js"></script>
-    <style type="text/css">
-    textarea{
-        height: auto;
-        resize: none;
-        font-size: 1.3em;
-    }
-    body {
-    min-height: 100vh;
-    flex-direction: column;
-    }
-
-    footer.page-footer{
-        background-color: #448AFF;
-        height: 4em;
-        color: #FFF;
-    }
-
-    nav div{
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-<nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="/profile" class="brand-logo">TweetBook</a>
+<nav class="teal lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">TweetBook</a>
     </div>
 </nav>
 <br>
 <div class="row">
     <div class="col l3">
         <div align="center" class="well">
-            <img src="/images/banner.jpg" width="200px" height="200px">
+            <img src="/images/DSC00038.jpg" width="200px" height="200px">
             <% if (user.twitter.token) { %>
             <h5><span class="fa fa-user"></span><%= user.twitter.displayName %></h5>
-            <% } else { %>
-                <a href="/connect/twitter" class="btn btn-default">Connect Twitter</a>
             <% } %>
             
             <% if (user.local.email) { %>
                 <p>
-                    <strong>E-mail</strong>: <%= user.local.email %><br>
+                    <strong>E-mail: </strong><%= user.local.email %><br>
                 </p>
             <% } %>
             
             <% if (user.twitter.token) { %>
-            <p><strong>Twitter Handle:</strong> <%=user.twitter.username%></p>
+            <p><strong>Twitter Handle: </strong> <%=user.twitter.username%></p>
             <% } %>
             
             <% if (user.facebook.token) { %>
                 <p>
-                    <strong>Facebook Name</strong>: <%= user.facebook.name %><br>
+                    <strong>Facebook Name: </strong><%= user.facebook.name %><br>
                 </p>
-            <% } else { %>
-                <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
             <% } %>
-            
+
             <% if (user.local.email) { %>
                 <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+            <% } %>
+            <br><br>
+            <% if (user.facebook.token) { %>
+                <a href="/unlink/facebook" class="btn btn-primary">Unlink Facebook</a>
+            <% } %>
+            <br><br>
+            <% if (user.twitter.token) { %>
+            <a href="/unlink/twitter" class="btn btn-info">Unlink Twitter</a>
             <% } %>
         </div>
     </div>
 
     <div class="col l9">
         <div class="row" align="center">
-            <form action="/signup" method="post">
+            <form action="/twitter/tweet" method="post">
                 <div class="col l8 materialize-textarea">
                     <textarea placeholder="What's on your mind?" type="text" name="postStatus" maxlength=140 length="140" rows="2"></textarea>
                 </div>
                 <div class="col l2">
-                <button type="submit" class="btn waves-effect waves-light"><i class="icon-location-arrow"></i> Post</button>
+                <button type="submit" class="btn waves-effect waves-light" href="/twitter/tweet"><i class="icon-location-arrow"></i> Post</button>
                 </div>
             </form>
         </div>
+        <div align="center" class="row">
         <div class="col l6">
-            
             <div ng-app="Twitter">
                 <div ng-controller="TweetList">
                     <div align="center" class="row clearfix">
                         <div>
                             <div id="tweet-list">
-
-                                <!-- this div will repeat for every tweet object in the array using a template-expanding directive -->
                                 <div ng-repeat="tweet in tweetsResult" class="tweet-item">
-                                    <!-- sanitized HTML binding -->
                                     <div ng-bind-html="tweet.oEmbed.html"></div>
 
-                                    <!-- binding to Tweet source property -->
                                     <div class="tweet-details">
                                         Tweeted from <span ng-bind-html="tweet.source"></span>
-
-                                        <!-- play around with rendering different Tweet properties -->
-                                        <!-- <p>{{tweet.user.screen_name}}</p> -->
-                                        <!-- <p>{{tweet.text}}</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -119,12 +94,46 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <!-- this button will trigger the getMoreTweets function in the javascript controller -->
                             <button type="button" class="load-more-btn btn btn-default" ng-click="getMoreTweets()">Get More Tweets</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div align="center" class="col l6">
+            <div class="card well">
+                <h4 class="text-primary"><span class="fa fa-facebook"></span> Facebook Details</h4>
+
+                <% if (user.facebook.token) { %>
+                    <p>
+                        <strong>id</strong>: <%= user.facebook.id %><br>
+                        <strong>email</strong>: <%= user.facebook.email %><br>
+                        <strong>name</strong>: <%= user.facebook.name %><br>
+                    </p>
+                    <a href="/unlink/facebook" class="btn btn-primary">Unlink Facebook</a>
+                <% } else { %>
+                    <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+                <% } %>
+
+            </div>
+            <div class="card well">
+                <h4 class="text-info"><span class="fa fa-twitter"></span> Twitter Details</h4>
+
+                <% if (user.twitter.token) { %>
+                    <p>
+                        <strong>id</strong>: <%= user.twitter.id %><br>
+                        <strong>display name</strong>: <%= user.twitter.displayName %><br>
+                        <strong>username</strong>: <%= user.twitter.username %>
+                    </p>
+
+                    <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+                <% } else { %>
+                    <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+                <% } %>
+
+            </div>
+            
+        </div>
         </div>
     </div>
 </div>

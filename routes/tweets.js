@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Twit = require('twit');
 // load the auth variables
-var configAuth = require('../config'); // use this one for testing
+var configAuth = require('../config/config'); // use this one for testing
 
 // instantiate Twit module
 var twitter = new Twit(configAuth.twitter);
