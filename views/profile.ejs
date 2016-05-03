@@ -1,147 +1,136 @@
 <!doctype html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-
-    <title>TweetBook</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-    <!-- <link rel='stylesheet' href='/css/TweetList.css' /> -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-    <script src="//platform.twitter.com/widgets.js"></script>
-    <script src="/js/TweetList.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-</head>
-<body>
-<nav class="teal lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">TweetBook</a>
-    </div>
-</nav>
-<br>
-<div class="row">
-    <div class="col l3">
-        <div align="center" class="well">
-            <img src="/images/DSC00038.jpg" width="200px" height="200px">
-            <% if (user.twitter.token) { %>
-            <h5><span class="fa fa-user"></span><%= user.twitter.displayName %></h5>
-            <% } %>
-            
-            <% if (user.local.email) { %>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>TweetBook</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <!-- <link rel='stylesheet' href='/css/TweetList.css' /> -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+        <script src="//platform.twitter.com/widgets.js"></script>
+        <script src="/js/TweetList.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+    </head>
+    <body>
+        <nav class="teal lighten-1" role="navigation">
+            <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">TweetBook</a>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col l3">
+            <div align="center" class="well">
+                <img src="/images/DSC00038.jpg" width="200px" height="200px">
+                <% if (user.twitter.token) { %>
+                <h5><span class="fa fa-user"></span><%= user.twitter.displayName %></h5>
+                <% } %>
+                
+                <% if (user.local.email) { %>
                 <p>
                     <strong>E-mail: </strong><%= user.local.email %><br>
                 </p>
-            <% } %>
-            
-            <% if (user.twitter.token) { %>
-            <p><strong>Twitter Handle: </strong> <%=user.twitter.username%></p>
-            <% } %>
-            
-            <% if (user.facebook.token) { %>
+                <% } %>
+                
+                <% if (user.twitter.token) { %>
+                <p><strong>Twitter Handle: </strong> <%=user.twitter.username%></p>
+                <% } %>
+                
+                <% if (user.facebook.token) { %>
                 <p>
                     <strong>Facebook Name: </strong><%= user.facebook.name %><br>
                 </p>
-            <% } %>
-
-            <% if (user.local.email) { %>
+                <% } %>
+                <% if (user.local.email) { %>
                 <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-            <% } %>
-            <br><br>
-            <% if (user.facebook.token) { %>
+                <% } %>
+                <br><br>
+                <% if (user.facebook.token) { %>
                 <a href="/unlink/facebook" class="btn btn-primary">Unlink Facebook</a>
-            <% } %>
-            <br><br>
-            <% if (user.twitter.token) { %>
-            <a href="/unlink/twitter" class="btn btn-info">Unlink Twitter</a>
-            <% } %>
+                <% } %>
+                <br><br>
+                <% if (user.twitter.token) { %>
+                <a href="/unlink/twitter" class="btn btn-info">Unlink Twitter</a>
+                <% } %>
+            </div>
         </div>
-    </div>
-
-    <div class="col l9">
-        <div class="row" align="center">
-            
+        <div class="col l9">
+            <div class="row" align="center">
+                
                 <div class="col l8 materialize-textarea">
                     <textarea placeholder="What's on your mind?" type="text" name="postStatus" maxlength=140 length="140" rows="2"></textarea>
                 </div>
                 <div class="col l2">
-                <a class="btn waves-effect waves-light" href="127.0.0.1:8080" target="_blank"><i  class="icon-location-arrow"></i> Post</a>
+                    <a class="btn waves-effect waves-light" href="127.0.0.1:8080" target="_blank"><i  class="icon-location-arrow"></i> Post</a>
                 </div>
-            
-        </div>
-        <div align="center" class="row">
-        <div class="col l6">
-            <div ng-app="Twitter">
-                <div ng-controller="TweetList">
-                    <div align="center" class="row clearfix">
-                        <div>
-                            <div id="tweet-list">
-                                <div ng-repeat="tweet in tweetsResult" class="tweet-item">
-                                    <div ng-bind-html="tweet.oEmbed.html"></div>
-
-                                    <div class="tweet-details">
-                                        Tweeted from <span ng-bind-html="tweet.source"></span>
+                
+            </div>
+            <div align="center" class="row">
+                <div class="col l6">
+                    <div ng-app="Twitter">
+                        <div ng-controller="TweetList">
+                            <div align="center" class="row clearfix">
+                                <div>
+                                    <div id="tweet-list">
+                                        <div ng-repeat="tweet in tweetsResult" class="tweet-item">
+                                            <div ng-bind-html="tweet.oEmbed.html"></div>
+                                            <div class="tweet-details">
+                                                Tweeted from <span ng-bind-html="tweet.source"></span>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <button type="button" class="load-more-btn btn btn-default" ng-click="getMoreTweets()">Get More Tweets</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <button type="button" class="load-more-btn btn btn-default" ng-click="getMoreTweets()">Get More Tweets</button>
-                        </div>
+                </div>
+                <div align="center" class="col l6">
+                    <div class="card well">
+                        <h4 class="text-primary"><span class="fa fa-facebook"></span> Facebook Details</h4>
+                        <% if (user.facebook.token) { %>
+                        <p>
+                            <strong>id</strong>: <%= user.facebook.id %><br>
+                            <strong>email</strong>: <%= user.facebook.email %><br>
+                            <strong>name</strong>: <%= user.facebook.name %><br>
+                        </p>
+                        <a href="/unlink/facebook" class="btn btn-primary">Unlink Facebook</a>
+                        <% } else { %>
+                        <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+                        <% } %>
                     </div>
+                    <div class="card well">
+                        <h4 class="text-info"><span class="fa fa-twitter"></span> Twitter Details</h4>
+                        <% if (user.twitter.token) { %>
+                        <p>
+                            <strong>id</strong>: <%= user.twitter.id %><br>
+                            <strong>display name</strong>: <%= user.twitter.displayName %><br>
+                            <strong>username</strong>: <%= user.twitter.username %>
+                        </p>
+                        <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+                        <% } else { %>
+                        <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+                        <% } %>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-        <div align="center" class="col l6">
-            <div class="card well">
-                <h4 class="text-primary"><span class="fa fa-facebook"></span> Facebook Details</h4>
-
-                <% if (user.facebook.token) { %>
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %><br>
-                    </p>
-                    <a href="/unlink/facebook" class="btn btn-primary">Unlink Facebook</a>
-                <% } else { %>
-                    <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
-                <% } %>
-
-            </div>
-            <div class="card well">
-                <h4 class="text-info"><span class="fa fa-twitter"></span> Twitter Details</h4>
-
-                <% if (user.twitter.token) { %>
-                    <p>
-                        <strong>id</strong>: <%= user.twitter.id %><br>
-                        <strong>display name</strong>: <%= user.twitter.displayName %><br>
-                        <strong>username</strong>: <%= user.twitter.username %>
-                    </p>
-
-                    <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
-                <% } %>
-
-            </div>
-            
-        </div>
-        </div>
     </div>
-</div>
-
-<footer class="page-footer">
-    <div align="center" class="container">
-    © 2016 GS7 Inc.
-    </div>
-</footer>
+    <footer class="page-footer">
+        <div align="center" class="container">
+            © 2016 GS7 Inc.
+        </div>
+    </footer>
 </body>
 </html>

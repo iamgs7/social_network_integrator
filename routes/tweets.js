@@ -17,55 +17,57 @@ var USER_TIMELINE_URL = 'statuses/user_timeline';
  */
 router.get('/user_timeline/:user', function(req, res) {
 
-  var oEmbedTweets = [], tweets = [],
+    var oEmbedTweets = [],
+        tweets = [],
 
-  params = {
-    screen_name: req.params.user, // the user id passed in as part of the route
-    count: TWEET_COUNT // how many tweets to return
-  };
+        params = {
+            screen_name: req.params.user, // the user id passed in as part of the route
+            count: TWEET_COUNT // how many tweets to return
+        };
 
-  // the max_id is passed in via a query string param
-  if(req.query.max_id) {
-    params.max_id = req.query.max_id;
-  }
-
-  // request data 
-  twitter.get(USER_TIMELINE_URL, params, function (err, data, resp) {
-
-    tweets = data;
-
-    var i = 0, len = tweets.length;
-
-    for(i; i < len; i++) {
-      getOEmbed(tweets[i]);
+    // the max_id is passed in via a query string param
+    if (req.query.max_id) {
+        params.max_id = req.query.max_id;
     }
-  });
-
-  /**
-   * requests the oEmbed html
-   */
-  function getOEmbed (tweet) {
-
-    // oEmbed request params
-    var params = {
-      "id": tweet.id_str,
-      "maxwidth": MAX_WIDTH,
-      "hide_thread": true,
-      "omit_script": true
-    };
 
     // request data 
-    twitter.get(OEMBED_URL, params, function (err, data, resp) {
-      tweet.oEmbed = data;
-      oEmbedTweets.push(tweet);
+    twitter.get(USER_TIMELINE_URL, params, function(err, data, resp) {
 
-      // do we have oEmbed HTML for all Tweets?
-      if (oEmbedTweets.length == tweets.length) {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(oEmbedTweets);
-      }
+        tweets = data;
+
+        var i = 0,
+            len = tweets.length;
+
+        for (i; i < len; i++) {
+            getOEmbed(tweets[i]);
+        }
     });
-  }
+
+    /**
+     * requests the oEmbed html
+     */
+    function getOEmbed(tweet) {
+
+        // oEmbed request params
+        var params = {
+            "id": tweet.id_str,
+            "maxwidth": MAX_WIDTH,
+            "hide_thread": true,
+            "omit_script": true
+        };
+
+        // request data 
+        twitter.get(OEMBED_URL, params, function(err, data, resp) {
+            tweet.oEmbed = data;
+            oEmbedTweets.push(tweet);
+
+            // do we have oEmbed HTML for all Tweets?
+            if (oEmbedTweets.length == tweets.length) {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(oEmbedTweets);
+            }
+        });
+    }
 });
 
 module.exports = router;
