@@ -8,9 +8,16 @@ var express = require('express')
   , authCallback = require('./routes/auth-callback')
   , http = require('http')
   , path = require('path')
-  , app = express()
+  , app = express();
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+var favicon = require('favicon');
+var logger = require('logger');
+var methodOverride = require('method-override');
+
   // server info
-  , domain = "127.0.0.1"
+  var domain = "127.0.0.1"
   , port = process.env.PORT || 3000
   // passport / twitter stuff
   , config = require('./config')
@@ -45,7 +52,7 @@ function makeTweet(cb) {
     "https://api.twitter.com/1.1/statuses/update.json"
   , user.token
   , user.tokenSecret
-  , {"status": "How to Tweet & Direct Message using NodeJS http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html via @coolaj86" }
+  , {"status": "Testing out social integration! #cpsc473 @profavery" }
   , cb
   );
 }
@@ -106,13 +113,12 @@ passport.use(twitterAuthz);
 app.set('port', port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+//app.use(favicon());
+app.use(bodyParser());
+app.use(methodOverride());
 // Passport needs express/connect's cookieParser and session
-app.use(express.cookieParser());
-app.use(express.session({ secret: "blahhnsnhoaeunshtoe" }));
+app.use(cookieParser());
+app.use(session({ secret: "blahhnsnhoaeunshtoe" }));
 app.use(passport.initialize());
 app.use(passport.session());
 //  Passport MUST be initialize()d and session()d before the router

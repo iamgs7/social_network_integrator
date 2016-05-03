@@ -24,15 +24,17 @@ body {
 .first{
     background-image: url('/images/banner.jpg');
     background-size: 120%;
-    height: 30em;
+    height: 35em;
     color: #FFF;
+    padding-top: 5em;
 }
 
 .second{
     background-image: url('/images/banner2.jpg');
     background-size: 120%;
-    height: 30em;
+    height: 35em;
     color: #FFF;
+    padding-top: 5em;
 }
 
 .icon-block {
